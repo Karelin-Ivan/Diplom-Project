@@ -34,14 +34,24 @@ namespace MSSQL
 
         private void toolStripButtonUsers_Click(object sender, EventArgs e)
         {
-            formAdminisrtationUsers adminisrtationUsers = new formAdminisrtationUsers();
-            if (Application.OpenForms["AdminisrtationUsers"] == null)
-                adminisrtationUsers.Show();
+            if (Application.OpenForms["formAdminisrtationUsers"] == null)
+            {
+                new formAdminisrtationUsers().Show();
+            }
         }
 
         private void formMainMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void сканерToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms["formCartriges"] == null)
+            {
+                formCartriges formCartriges = new formCartriges();
+                formCartriges.Show();
+            }
         }
     }
 }

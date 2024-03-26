@@ -17,17 +17,11 @@ namespace MSSQL
 {
     public partial class formRegistration : Form
     {
+
         DataBase dataBase = new DataBase();
         public formRegistration()
         {
             InitializeComponent();
-        }
-
-        private void buttonAuthorization_Click(object sender, EventArgs e)
-        {
-            formAuthorization formAuthorization = new formAuthorization();
-            formAuthorization.Show();
-            this.Close();
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -47,9 +41,7 @@ namespace MSSQL
                 if(command.ExecuteNonQuery() ==1)//Проверка выполнилась ли команда
                 {
                     MessageBox.Show("Аккаунт успешно создан");
-                    formAuthorization authorization = new formAuthorization();
-                    this.Close();
-                    authorization.Show();
+                    this.Close();     
                 }
                 else
                     MessageBox.Show("Ошибка соединения",null,MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -103,9 +95,5 @@ namespace MSSQL
                 return true;
         }
 
-        private void labelBackAuthorization_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-        }
     }
 }

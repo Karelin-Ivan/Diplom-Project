@@ -36,21 +36,24 @@ namespace MSSQL
             checkAdmin.HeaderText = "roleAdmin";
             dataGridViewUsers.Columns.Add(checkAdmin);
             var checkActive = new DataGridViewCheckBoxColumn();
-            checkActive.HeaderText = "Active";
+            checkActive.HeaderText = "active";
             dataGridViewUsers.Columns.Add(checkActive);
-            dataGridViewUsers.Columns.Add("IsNew", string.Empty);
+            dataGridViewUsers.Columns.Add("registrationDate", "Дата изменения");
+
 
             dataGridViewUsers.Columns[0].ReadOnly = true;
             dataGridViewUsers.Columns[1].ReadOnly = true;
             dataGridViewUsers.Columns[2].ReadOnly = true;
+            dataGridViewUsers.Columns[5].ReadOnly = true;
+
         }
 
         private void ReadSinglRow(DataGridView dgw, IDataRecord record)
         {
-            dgw.Rows.Add(record.GetInt16(0), record.GetString(1), record.GetString(2), record.GetBoolean(4), record.GetBoolean(5));
+            dgw.Rows.Add(record.GetInt16(0), record.GetString(1), record.GetString(2), record.GetBoolean(4), record.GetBoolean(5), record.GetDateTime(6));
         }
 
-        private void RefreshDataGrid(DataGridView dgw)
+        public void RefreshDataGrid(DataGridView dgw)
         {
             dgw.Rows.Clear();
 
@@ -72,16 +75,21 @@ namespace MSSQL
 
         private void buttonDeleteElement_Click(object sender, EventArgs e)
         {
-            dataBase.openConnection();
+            if (MessageBox.Show("Удалить выбранного пользователя?","",MessageBoxButtons.YesNo)==DialogResult.Yes)
+            {
 
-            var selectedRowIndex = dataGridViewUsers.CurrentCell.RowIndex;
+                dataBase.openConnection();
 
-            var id = Convert.ToInt16(dataGridViewUsers.Rows[selectedRowIndex].Cells[0].Value);
-            var deleteQuery = $"DELETE FROM Users WHERE id = {id}";
+                var selectedRowIndex = dataGridViewUsers.CurrentCell.RowIndex;
 
-            var command = new SqlCommand(deleteQuery, dataBase.getSqlConnection());
-            command.ExecuteNonQuery();
-            RefreshDataGrid (dataGridViewUsers);
+                var id = Convert.ToInt16(dataGridViewUsers.Rows[selectedRowIndex].Cells[0].Value);
+                var deleteQuery = $"DELETE FROM Users WHERE id = {id}";
+
+                var command = new SqlCommand(deleteQuery, dataBase.getSqlConnection());
+                command.ExecuteNonQuery();
+                RefreshDataGrid(dataGridViewUsers);
+            }
+
         }
 
         private void AdminisrtationUsers_FormClosed(object sender, FormClosedEventArgs e)
@@ -109,9 +117,14 @@ namespace MSSQL
             if (Application.OpenForms["Registration"] == null)
             {
                 formRegistration formRegistration = new formRegistration();
-                formRegistration.Location = this.Location;
-                formRegistration.Show();
+                formRegistration.ShowDialog();
+                RefreshDataGrid(dataGridViewUsers);
             }
+        }
+
+        private void pictureBoxRefreshData_Click(object sender, EventArgs e)
+        {
+            RefreshDataGrid(dataGridViewUsers);
         }
     }
 }
