@@ -11,18 +11,17 @@ using System.Windows.Forms;
 
 namespace MSSQL
 {
-    public partial class formAdminisrtationUsers : Form
+    public partial class FormAdminisrtationUsers : Form
     {
         DataBase dataBase = new DataBase();
 
-        public formAdminisrtationUsers()
+        public FormAdminisrtationUsers()
         {
             InitializeComponent();
         }
 
         private void AdminisrtationUsers_Load(object sender, EventArgs e)
         {
-
             CreateColumns();
             RefreshDataGrid(dataGridViewUsers);
         }
@@ -45,7 +44,6 @@ namespace MSSQL
             dataGridViewUsers.Columns[1].ReadOnly = true;
             dataGridViewUsers.Columns[2].ReadOnly = true;
             dataGridViewUsers.Columns[5].ReadOnly = true;
-
         }
 
         private void ReadSinglRow(DataGridView dgw, IDataRecord record)
@@ -72,12 +70,10 @@ namespace MSSQL
             reader.Close();
         }
 
-
         private void buttonDeleteElement_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Удалить выбранного пользователя?","",MessageBoxButtons.YesNo)==DialogResult.Yes)
             {
-
                 dataBase.openConnection();
 
                 var selectedRowIndex = dataGridViewUsers.CurrentCell.RowIndex;
@@ -89,7 +85,6 @@ namespace MSSQL
                 command.ExecuteNonQuery();
                 RefreshDataGrid(dataGridViewUsers);
             }
-
         }
 
         private void AdminisrtationUsers_FormClosed(object sender, FormClosedEventArgs e)
@@ -114,10 +109,10 @@ namespace MSSQL
 
         private void buttonAddUser_Click(object sender, EventArgs e)
         {
+            FormRegistration newFormRegistration = new FormRegistration();
             if (Application.OpenForms["Registration"] == null)
             {
-                formRegistration formRegistration = new formRegistration();
-                formRegistration.ShowDialog();
+                newFormRegistration.ShowDialog();
                 RefreshDataGrid(dataGridViewUsers);
             }
         }
@@ -125,6 +120,18 @@ namespace MSSQL
         private void pictureBoxRefreshData_Click(object sender, EventArgs e)
         {
             RefreshDataGrid(dataGridViewUsers);
+        }
+
+        private void buttonChangePassword_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms["FormChangeUserPassword"] == null)
+            {
+                int selectedRowIndex = dataGridViewUsers.CurrentCell.RowIndex;
+                FormChangeUserPassword formChangeUserPassword = new FormChangeUserPassword(Convert.ToInt16(dataGridViewUsers.Rows[selectedRowIndex].Cells[0].Value));
+                formChangeUserPassword.Show();
+            }
+            
+
         }
     }
 }

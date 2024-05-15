@@ -15,11 +15,11 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace MSSQL
 {
-    public partial class formRegistration : Form
+    public partial class FormRegistration : Form
     {
 
         DataBase dataBase = new DataBase();
-        public formRegistration()
+        public FormRegistration()
         {
             InitializeComponent();
         }
@@ -28,9 +28,10 @@ namespace MSSQL
         {
             var username = textBoxUsername.Text;
             var login = textBoxLogin.Text;
-            var password = textBoxPassword.Text;
+            var password = HashFunction.HashPassword(textBoxPassword.Text);
             bool roleAdmin = checkBoxRoleAdmin.Checked;
             bool userActive = checkBoxUserActive.Checked;
+
 
             string querystring = $"INSERT INTO Users (username, login, pass, roleAdmin,active) VALUES ('{username}','{login}','{password}','{roleAdmin}','{userActive}')";
 
@@ -76,12 +77,11 @@ namespace MSSQL
         private Boolean checkUser() //Проверка на существование пользователя
         {
             var login = textBoxLogin.Text;
-            var password = textBoxPassword.Text;
             var username = textBoxUsername.Text;
 
             SqlDataAdapter adapter = new SqlDataAdapter();
             DataTable dataTable = new DataTable();
-            string queryString = $"select * from Users where (login = '{login}' and  pass = '{password}') or username = '{username}'";
+            string queryString = $"select * from Users where (login = '{login}' or username = '{username}')";
             SqlCommand cmd = new SqlCommand(queryString, dataBase.getSqlConnection());
 
             adapter.SelectCommand = cmd;

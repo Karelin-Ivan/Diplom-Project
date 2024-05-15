@@ -11,11 +11,12 @@ using System.Windows.Forms;
 namespace MSSQL
 {
 
-    public partial class formMainMenu : Form
+    public partial class FormMainMenu : Form
     {
         private readonly checkUser _user;
+        private Form ActiveForm;
 
-        public formMainMenu(checkUser user)
+        public FormMainMenu(checkUser user)
         {
             InitializeComponent();
             _user = user;
@@ -23,35 +24,72 @@ namespace MSSQL
 
         private void isAdmin()
         {
-            toolStripButtonUsers.Visible = _user.IsAdmin;
+            toolStripButtonSetting.Visible = _user.IsAdmin;
+            toolStripButtonRepair.Visible = _user.IsAdmin;
         }
 
         private void formMainMenu_Load(object sender, EventArgs e)
         {
             isAdmin();
             toolStripLabelUserStatus.Text = $"{_user.Login}: {_user.Status}";
-        }
 
-        private void toolStripButtonUsers_Click(object sender, EventArgs e)
-        {
-            if (Application.OpenForms["formAdminisrtationUsers"] == null)
-            {
-                new formAdminisrtationUsers().Show();
-            }
-        }
-
-        private void formMainMenu_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
+            OpenChildForm(new FormStatistics());
         }
 
         private void сканерToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Application.OpenForms["formCartriges"] == null)
+                OpenChildForm(new FormCartriges());
+        }
+
+        private void OpenChildForm(Form childForm)
+        {
+            if (ActiveForm != null)
             {
-                formCartriges formCartriges = new formCartriges();
-                formCartriges.Show();
+                ActiveForm.Close();
+                ActiveForm.Dispose();
             }
+            ActiveForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            this.panelFormLoader.Controls.Add(childForm);
+            childForm.BringToFront();
+            childForm.Show();  
+        }
+
+        private void toolStripButtonSetting_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FormSettings());
+        }
+
+        private void toolStripButtonRepair_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FormCreatePDF());
+        }
+
+        private void toolStripButtonUsers_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FormAdminisrtationUsers());
+        }
+
+        private void toolStripLabelUserStatus_Click(object sender, EventArgs e)
+        {
+
+            if (Application.OpenForms["formAuthorization"] == null)
+            {
+                FormAuthorization formAuthorization = new FormAuthorization();
+                formAuthorization.Show();
+            }
+        }
+
+        private void toolStripMenuItemReportRegister_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FormReport());
+        }
+
+        private void FormMainMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

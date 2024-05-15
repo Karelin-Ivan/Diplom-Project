@@ -10,12 +10,14 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Reflection;
+using System.Data.Common;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MSSQL
 {
-    public partial class formCartriges : Form
+    public partial class FormCartriges : Form
     {
-        public formCartriges()
+        public FormCartriges()
         {
             InitializeComponent();
         }
@@ -27,131 +29,105 @@ namespace MSSQL
             if (checkBoxDirection.Checked)
             {
                 checkBoxDirection.Text = "Прием картриджей";
-                checkBoxDirection.BackColor = System.Drawing.Color.Green;
             }
             else
             {
                 checkBoxDirection.Text = "Отпуск картриджей";
-                checkBoxDirection.BackColor = System.Drawing.Color.Red;
             }
         }
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        private void CreateColumns()
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                //Обработчик на нажатие
-            }
+            dataGridViewCartriges.Columns.Add("id", "id");
+            dataGridViewCartriges.Columns.Add("model", "Модель");
+            dataGridViewCartriges.Columns.Add("barcode", "Штрихкод");
+            dataGridViewCartriges.Columns.Add("onRepair", "На ремонте");
+            dataGridViewCartriges.Columns.Add("organization", "Организация");
+            dataGridViewCartriges.Columns.Add("modifiedDate", "Дата последнего изменения");
+
         }
 
-        private void addCartigeToRegister(string barcode, string direction)
+
+
+        private void AddCartigeToRegister(string barcode, string direction)
         {
-            string queryGetString = $"select id, model, barcode, onRepair, organization, modifiedDate from СartridgesGuide where (barcode = '{barcode}')";
+            string queryGetString = $"select id, model, barcode, onRepair, organization, modifiedDate from Сartridges";
 
             SqlCommand getCommand = new SqlCommand(queryGetString, dataBase.getSqlConnection());
 
             dataBase.openConnection();
 
-
             SqlDataAdapter adapter = new SqlDataAdapter();
-            DataTable dtable = new DataTable();
+            DataTable manualDTable = new DataTable();
             adapter.SelectCommand = getCommand;
-            adapter.Fill(dtable);
-            if (dtable.Rows.Count == 1)
+            adapter.Fill(manualDTable);
+
+            bool noHits = false;
+
+            for (int i = 0; i < manualDTable.Rows.Count; i++)
             {
-
-                SqlDataReader dataReader = getCommand.ExecuteReader(); //Убрать ридер и получать значения и datatable которую ранее заполнили
-
-                bool onRepair = false;
-                while (dataReader.Read())
+                if (manualDTable.Rows[i][2].ToString() == textBoxEnterBarcode.Text)
                 {
-                    textBoxId.Text = dataReader.GetValue(0).ToString();
-                    textBoxName.Text = dataReader.GetValue(1).ToString();
-                    textBoxBarcode.Text = dataReader.GetValue(2).ToString();
-                    textBoxOnRepair.Text = dataReader.GetValue(3).ToString();
-                    onRepair = dataReader.GetBoolean(3);
-                    textBoxOrganization.Text = dataReader.GetValue(4).ToString();
-                    textBoxModDate.Text = dataReader.GetValue(5).ToString();
+                    dataGridViewCartriges.Rows.Add(manualDTable.Rows[i][0], manualDTable.Rows[i][1], manualDTable.Rows[i][2], manualDTable.Rows[i][3], manualDTable.Rows[i][4], manualDTable.Rows[i][5]);
 
+                    string querySetString = $"INSERT INTO СartridgesRegister (model, barcode, direction, organization, movementDate) VALUES ('{manualDTable.Rows[i][1]}', '{manualDTable.Rows[i][2]}','{direction}','{manualDTable.Rows[i][4]}', '{DateTime.Now}')"
+                                          + $"UPDATE Сartridges SET onRepair = '{!checkBoxDirection.Checked}', modifiedDate = '{DateTime.Now}' WHERE id = '{manualDTable.Rows[i][0]}'";
+
+                    SqlCommand setCommand = new SqlCommand(querySetString, dataBase.getSqlConnection());
+                    setCommand.ExecuteNonQuery();
+                    dataBase.closeConnection();
+                    noHits = true;
                 }
-                dataReader.Close();
-
-
-                string querySetString = $"INSERT INTO СartridgesRegister (model, barcode, direction, organization, date) VALUES ('{textBoxName.Text}', '{textBoxBarcode.Text}','{direction}','{textBoxOrganization.Text}', '{DateTime.Now}')"
-                                      + $"UPDATE СartridgesGuide SET onRepair = '{!onRepair}', modifiedDate = '{DateTime.Now}'";
-
-                SqlCommand setCommand = new SqlCommand(querySetString, dataBase.getSqlConnection());
-                setCommand.ExecuteNonQuery();
-
             }
-            else if (dtable.Rows.Count == 0 &&  Application.OpenForms["formAddCartrige"] == null && MessageBox.Show($"Код: {barcode} /nКартридж не найден, добавить новую запись в базу?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if(!noHits && Application.OpenForms["formAddCartrige"] == null && MessageBox.Show($"Код: {barcode} \nКартридж не найден, добавить новую запись в базу?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                formAddCartrige formAddCartrige = new formAddCartrige(barcode);
+                FormRegCartrige formAddCartrige = new FormRegCartrige(barcode);
                 formAddCartrige.Show();
             }
-            dataBase.closeConnection();
-
-        
 
         }
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
-            addCartigeToRegister(textBoxEnterBarcode.Text, checkBoxDirection.Text);
+
+            if (!FindDGVDublicate(textBoxEnterBarcode.Text, dataGridViewCartriges))
+            {
+                AddCartigeToRegister(textBoxEnterBarcode.Text, checkBoxDirection.Text);
+            }
+            else
+                MessageBox.Show("Картидж уже добавлен");
             textBoxEnterBarcode.Text = string.Empty;
         }
 
-
-    }
-
-
-        /*
-        private void CreateColumns()
+        private bool FindDGVDublicate(string barcode, DataGridView dataGrid) //Поиск в колонке повторяющегося значения
         {
-            dataGridViewCartriges.Columns.Add("id", "id");
-            dataGridViewCartriges.Columns.Add("username", "Имя пользователя");
-            dataGridViewCartriges.Columns.Add("login", "Логин");
-            var checkAdmin = new DataGridViewCheckBoxColumn();
-            checkAdmin.HeaderText = "roleAdmin";
-            dataGridViewCartriges.Columns.Add(checkAdmin);
-            var checkActive = new DataGridViewCheckBoxColumn();
-            checkActive.HeaderText = "active";
-            dataGridViewCartriges.Columns.Add(checkActive);
-            dataGridViewCartriges.Columns.Add("registrationDate", "Дата изменения");
+            bool dublicate = false;
 
-
-            dataGridViewCartriges.Columns[0].ReadOnly = true;
-            dataGridViewCartriges.Columns[1].ReadOnly = true;
-            dataGridViewCartriges.Columns[2].ReadOnly = true;
-            dataGridViewCartriges.Columns[5].ReadOnly = true;
-
-        }
-
-        public void RefreshDataGrid(DataGridView dgw)
-        {
-            dgw.Rows.Clear();
-
-            string queryString = $"SELECT * FROM Users";
-
-            SqlCommand comand = new SqlCommand(queryString, dataBase.getSqlConnection());
-
-            dataBase.openConnection();
-
-            SqlDataReader reader = comand.ExecuteReader();
-
-            while (reader.Read())
+            for (int i = 0; i < dataGrid.RowCount; i++)
             {
-                ReadSinglRow(dgw, reader);
+                if (dataGrid.Rows[i].Cells[2].Value.ToString() == textBoxEnterBarcode.Text)
+                {
+                    dublicate = true;
+                }
             }
-            reader.Close();
+            return dublicate;
         }
 
-        private void ReadSinglRow(DataGridView dgw, IDataRecord record)
+        private void formCartriges_Load(object sender, EventArgs e)
         {
-            dgw.Rows.Add(record.GetInt16(0), record.GetString(1), record.GetString(2), record.GetBoolean(4), record.GetBoolean(5), record.GetDateTime(6));
+            CreateColumns();
+            dataGridViewCartriges.Columns[0].Width = 100;
+            dataGridViewCartriges.Columns[3].Width = 200;
+
+            textBoxEnterBarcode.Focus();
         }
 
-        */
+        private void textBoxEnterBarcode_KeyDown(object sender, KeyEventArgs e)
+        {
 
-    
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonEnter_Click(sender, e);
+            }
+        }
+    }
 }

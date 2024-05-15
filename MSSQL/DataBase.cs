@@ -11,6 +11,7 @@ namespace MSSQL
     {
         SqlConnection sqlConnection = new SqlConnection(@"Data Source=IVAN\SQLEXPRESS;Initial Catalog=Project;Integrated Security=True");
 
+
         public void openConnection()
         {
             if (sqlConnection.State == System.Data.ConnectionState.Closed)

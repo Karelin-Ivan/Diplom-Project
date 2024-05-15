@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace MSSQL
 {
-    public partial class formAuthorization : Form
+    public partial class FormAuthorization : Form
     {
         DataBase dataBase = new DataBase();
 
-        public formAuthorization()
+        public FormAuthorization()
         {
             InitializeComponent();
         }
@@ -29,8 +29,9 @@ namespace MSSQL
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+
             var loginUser = textBoxLogin.Text;
-            var passUser = textBoxPassword.Text;
+            var passUser = HashFunction.HashPassword(textBoxPassword.Text);
 
             SqlDataAdapter adapter = new SqlDataAdapter();
             DataTable dtable = new DataTable();
@@ -45,7 +46,7 @@ namespace MSSQL
             {
                 checkUser user = new checkUser(dtable.Rows[0].ItemArray[1].ToString(), Convert.ToBoolean(dtable.Rows[0].ItemArray[4]));
                 
-                formMainMenu mainExample = new formMainMenu(user);
+                FormMainMenu mainExample = new FormMainMenu(user);
                 mainExample.Show();
                 this.Hide();
             }

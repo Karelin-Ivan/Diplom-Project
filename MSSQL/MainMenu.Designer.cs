@@ -1,6 +1,6 @@
 ﻿namespace MSSQL
 {
-    partial class formMainMenu
+    partial class FormMainMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,30 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formMainMenu));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelUserStatus = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.камераToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButtonStatistics = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButtonCartriges = new System.Windows.Forms.ToolStripDropDownButton();
             this.сканерToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripButtonRepair = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButtonReports = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItemReportRegister = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButtonUsers = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripButtonSetting = new System.Windows.Forms.ToolStripButton();
+            this.panelFormLoader = new System.Windows.Forms.Panel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabelUserStatus,
-            this.toolStripDropDownButton1,
-            this.toolStripDropDownButton2,
+            this.toolStripButtonStatistics,
+            this.toolStripDropDownButtonCartriges,
+            this.toolStripButtonRepair,
+            this.toolStripDropDownButtonReports,
             this.toolStripButtonUsers,
-            this.toolStripDropDownButton3});
+            this.toolStripButtonSetting});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(944, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(944, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -59,71 +65,101 @@
             // 
             this.toolStripLabelUserStatus.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabelUserStatus.Name = "toolStripLabelUserStatus";
-            this.toolStripLabelUserStatus.Size = new System.Drawing.Size(61, 22);
+            this.toolStripLabelUserStatus.Size = new System.Drawing.Size(87, 24);
             this.toolStripLabelUserStatus.Text = "userStatus";
+            this.toolStripLabelUserStatus.Click += new System.EventHandler(this.toolStripLabelUserStatus_Click);
             // 
-            // toolStripDropDownButton1
+            // toolStripButtonStatistics
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.камераToolStripMenuItem,
+            this.toolStripButtonStatistics.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonStatistics.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonStatistics.Image")));
+            this.toolStripButtonStatistics.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonStatistics.Name = "toolStripButtonStatistics";
+            this.toolStripButtonStatistics.Size = new System.Drawing.Size(103, 24);
+            this.toolStripButtonStatistics.Text = "Статистика";
+            // 
+            // toolStripDropDownButtonCartriges
+            // 
+            this.toolStripDropDownButtonCartriges.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButtonCartriges.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сканерToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(114, 22);
-            this.toolStripDropDownButton1.Text = "Учет картриджей";
-            // 
-            // камераToolStripMenuItem
-            // 
-            this.камераToolStripMenuItem.Name = "камераToolStripMenuItem";
-            this.камераToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.камераToolStripMenuItem.Text = "Камера";
+            this.toolStripDropDownButtonCartriges.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonCartriges.Image")));
+            this.toolStripDropDownButtonCartriges.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButtonCartriges.Name = "toolStripDropDownButtonCartriges";
+            this.toolStripDropDownButtonCartriges.Size = new System.Drawing.Size(156, 24);
+            this.toolStripDropDownButtonCartriges.Text = "Учет картриджей";
             // 
             // сканерToolStripMenuItem
             // 
             this.сканерToolStripMenuItem.Name = "сканерToolStripMenuItem";
-            this.сканерToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сканерToolStripMenuItem.Size = new System.Drawing.Size(133, 24);
             this.сканерToolStripMenuItem.Text = "Сканер";
             this.сканерToolStripMenuItem.Click += new System.EventHandler(this.сканерToolStripMenuItem_Click);
             // 
-            // toolStripDropDownButton2
+            // toolStripButtonRepair
             // 
-            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
-            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(124, 22);
-            this.toolStripDropDownButton2.Text = "Техника на ремонт";
+            this.toolStripButtonRepair.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonRepair.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRepair.Name = "toolStripButtonRepair";
+            this.toolStripButtonRepair.Size = new System.Drawing.Size(134, 24);
+            this.toolStripButtonRepair.Text = "Ремонт техники";
+            this.toolStripButtonRepair.Click += new System.EventHandler(this.toolStripButtonRepair_Click);
+            // 
+            // toolStripDropDownButtonReports
+            // 
+            this.toolStripDropDownButtonReports.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButtonReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemReportRegister});
+            this.toolStripDropDownButtonReports.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonReports.Image")));
+            this.toolStripDropDownButtonReports.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButtonReports.Name = "toolStripDropDownButtonReports";
+            this.toolStripDropDownButtonReports.Size = new System.Drawing.Size(81, 24);
+            this.toolStripDropDownButtonReports.Text = "Отчеты";
+            // 
+            // toolStripMenuItemReportRegister
+            // 
+            this.toolStripMenuItemReportRegister.Name = "toolStripMenuItemReportRegister";
+            this.toolStripMenuItemReportRegister.Size = new System.Drawing.Size(139, 24);
+            this.toolStripMenuItemReportRegister.Text = "Регистр";
+            this.toolStripMenuItemReportRegister.Click += new System.EventHandler(this.toolStripMenuItemReportRegister_Click);
             // 
             // toolStripButtonUsers
             // 
             this.toolStripButtonUsers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonUsers.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonUsers.Image")));
             this.toolStripButtonUsers.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonUsers.Name = "toolStripButtonUsers";
-            this.toolStripButtonUsers.Size = new System.Drawing.Size(89, 22);
+            this.toolStripButtonUsers.Size = new System.Drawing.Size(125, 24);
             this.toolStripButtonUsers.Text = "Пользователи";
             this.toolStripButtonUsers.Click += new System.EventHandler(this.toolStripButtonUsers_Click);
             // 
-            // toolStripDropDownButton3
+            // toolStripButtonSetting
             // 
-            this.toolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
-            this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
-            this.toolStripDropDownButton3.Size = new System.Drawing.Size(61, 22);
-            this.toolStripDropDownButton3.Text = "Отчеты";
+            this.toolStripButtonSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonSetting.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSetting.Image")));
+            this.toolStripButtonSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSetting.Name = "toolStripButtonSetting";
+            this.toolStripButtonSetting.Size = new System.Drawing.Size(95, 24);
+            this.toolStripButtonSetting.Text = "Настройки";
+            this.toolStripButtonSetting.Click += new System.EventHandler(this.toolStripButtonSetting_Click);
             // 
-            // formMainMenu
+            // panelFormLoader
+            // 
+            this.panelFormLoader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFormLoader.Location = new System.Drawing.Point(0, 27);
+            this.panelFormLoader.Name = "panelFormLoader";
+            this.panelFormLoader.Size = new System.Drawing.Size(944, 474);
+            this.panelFormLoader.TabIndex = 1;
+            // 
+            // FormMainMenu
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(944, 501);
+            this.Controls.Add(this.panelFormLoader);
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Name = "formMainMenu";
+            this.Name = "FormMainMenu";
             this.Text = "MainMenu";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formMainMenu_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMainMenu_FormClosed);
             this.Load += new System.EventHandler(this.formMainMenu_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -136,11 +172,14 @@
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabelUserStatus;
-        private System.Windows.Forms.ToolStripButton toolStripButtonUsers;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem камераToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSetting;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonCartriges;
         private System.Windows.Forms.ToolStripMenuItem сканерToolStripMenuItem;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton3;
+        private System.Windows.Forms.Panel panelFormLoader;
+        private System.Windows.Forms.ToolStripButton toolStripButtonRepair;
+        private System.Windows.Forms.ToolStripButton toolStripButtonUsers;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonReports;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemReportRegister;
+        private System.Windows.Forms.ToolStripButton toolStripButtonStatistics;
     }
 }
