@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Xml.Linq;
 
 namespace MSSQL
 {
@@ -26,10 +27,12 @@ namespace MSSQL
         {
             CreateChart();
             CreateColumns();
-            RefreshDataGrid(dataGridView);
+            RefreshDataGrid(dataGridView, "Сartridges");
+            buttonCartrigesOnRepair.Text = RefreshDataButtons("Сartridges");
+            buttonTechnicsOnRepair.Text = RefreshDataButtons("Technics");
         }
 
-        private void CreateChart()
+        private void CreateChart() //ЧАРТ СОБИРАЕТСЯ ПО ВСЕМ ДАННЫМ ПЕРЕПИСАТЬ НА JOIN
         {
             Series series = chartOnRepair.Series.Add("");
             for (int i = -6; i <= 0; i++)
@@ -39,7 +42,7 @@ namespace MSSQL
 
                 DateTime startMonth = DateTime.Today.AddDays(-(DateTime.Now.Day - 1));
                 int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
-                string queryString = $"SELECT COUNT(*) FROM СartridgesRegister WHERE movementDate > '{startMonth.AddMonths(i)}' AND movementDate < '{startMonth.AddMonths(i).AddDays(daysInMonth)}' AND direction = 'Отпуск картриджей'";
+                string queryString = $"SELECT COUNT(*) FROM Register WHERE movementDate > '{startMonth.AddMonths(i)}' AND movementDate < '{startMonth.AddMonths(i).AddDays(daysInMonth)}' AND direction = 'Отпуск'";
                 using (SqlCommand cmd = new SqlCommand(queryString, dataBase.getSqlConnection()))
                 {
                     dataBase.openConnection();
@@ -53,11 +56,11 @@ namespace MSSQL
             series1.Points.DataBindY(nfg);
         }
 
-        private void RefreshDataGrid(DataGridView dgw)
+        private void RefreshDataGrid(DataGridView dgw, string DBName)
         {
             dgw.Rows.Clear();
 
-            string queryString = $"SELECT * FROM Сartridges WHERE  onRepair = 1 ORDER BY model";
+            string queryString = $"SELECT * FROM {DBName} WHERE  onRepair = 1 ORDER BY model";
             //Добавить в строку запроса для получения данных только за данный месяц
             //modifiedDate > '{DateTime.Now.AddDays(-(DateTime.Now.Day - 1))}' AND modifiedDate < '{DateTime.Now}' AND
             SqlCommand comand = new SqlCommand(queryString, dataBase.getSqlConnection());
@@ -69,16 +72,15 @@ namespace MSSQL
             }
             reader.Close();
 
-            RefreshDataButtons();
         }
 
-        private void RefreshDataButtons()
+        private string RefreshDataButtons(string DBName)
         {
-            string queryString = $"SELECT COUNT (*) FROM Сartridges WHERE onRepair = 1";
+            string queryString = $"SELECT COUNT (*) FROM {DBName} WHERE onRepair = 1";
             using (SqlCommand cmd = new SqlCommand(queryString, dataBase.getSqlConnection()))
             {
                 dataBase.openConnection();
-                buttonCartrigesOnRepair.Text = cmd.ExecuteScalar().ToString();
+                    return (cmd.ExecuteScalar().ToString());
                 dataBase.closeConnection();
             }
         }
@@ -97,9 +99,12 @@ namespace MSSQL
 
         private void buttonCartrigesOnRepair_Click(object sender, EventArgs e)
         {
-            CreateColumns();
-            RefreshDataGrid(dataGridView);
+            RefreshDataGrid(dataGridView, "Сartridges");
         }
 
+        private void buttonTechnicsOnRepair_Click(object sender, EventArgs e)
+        {
+            RefreshDataGrid(dataGridView, "Technics");
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace MSSQL
             dateTimePickerStart.Value = DateTime.Now.Date;
             dateTimePickerEnd.Value = DateTime.Now.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
 
-            foreach (string el in DataBaseCommands.GetCartriges())
+            foreach (string el in DataBaseCommands.GetUniqueItems("Сartridges"))
             {
                 comboBoxModel.Items.Add(el);
             }

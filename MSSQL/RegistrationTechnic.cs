@@ -9,23 +9,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-
 namespace MSSQL
 {
-    public partial class FormRegCartrige : Form
+    public partial class FormRegistrationTechnic : Form
     {
         DataBase dataBase = new DataBase();
-        public FormRegCartrige(string barcode)
+        public FormRegistrationTechnic(string barcode)
         {
             InitializeComponent();
             textBoxBarcode.Text = barcode;
-        }
 
-        private void formAddCartrige_Load(object sender, EventArgs e)
-        {
-            foreach (string el in DataBaseCommands.GetCartriges())
+            foreach (string el in DataBaseCommands.GetUniqueItems("Technics"))
             {
                 comboBoxModel.Items.Add(el);
+            }
+
+            foreach (TextBox textBox in Controls.OfType<TextBox>())
+            {
+                textBox.MaxLength = 32;
             }
         }
 
@@ -33,7 +34,7 @@ namespace MSSQL
         {
             if (textBoxBarcode.Text != string.Empty && comboBoxOrganization.Text != string.Empty && comboBoxModel.Text != string.Empty)
             {
-                string queryString = $"INSERT INTO Сartridges (model, barcode, organization) VALUES ('{comboBoxModel.Text}', '{textBoxBarcode.Text}','{comboBoxOrganization.Text}')";
+                string queryString = $"INSERT INTO Technics (barcode, inventoryNumber ,model, [owner], organization, modifiedDate, placement, onRepair) VALUES ({textBoxBarcode.Text},{textBoxInventoryNumber.Text},{comboBoxModel.Text},{textBoxMOL.Text},{comboBoxOrganization.Text},{DateTime.Now},{textBoxPlacement.Text},{false})";
                 SqlCommand command = new SqlCommand(queryString, dataBase.getSqlConnection());
                 dataBase.openConnection();
                 if (command.ExecuteNonQuery() == 1)
@@ -45,12 +46,12 @@ namespace MSSQL
                 dataBase.closeConnection();
             }
             else
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show("Заполните все поля с знаком '*'!");
         }
 
         private void buttonChanngeStyle_Click(object sender, EventArgs e)
         {
-            if(comboBoxModel.DropDownStyle == ComboBoxStyle.DropDownList)
+            if (comboBoxModel.DropDownStyle == ComboBoxStyle.DropDownList)
                 comboBoxModel.DropDownStyle = ComboBoxStyle.DropDown;
             else
                 comboBoxModel.DropDownStyle = ComboBoxStyle.DropDownList;

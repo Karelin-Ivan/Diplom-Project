@@ -15,16 +15,16 @@ namespace MSSQL
 {
     class DataBaseCommands
     {
-        
-        public static string[] GetCartriges()
+
+        public static string[] GetUniqueItems(string DBTable)
         {
             DataBase dataBase = new DataBase();
             dataBase.openConnection();
-            string querystring = $"SELECT DISTINCT model FROM Сartridges";
+            string querystring = $"SELECT DISTINCT model FROM {DBTable}";
             SqlCommand command = new SqlCommand(querystring, dataBase.getSqlConnection());
-            string querystringCount = $"SELECT COUNT (DISTINCT model) FROM Сartridges";
+            string querystringCount = $"SELECT COUNT (DISTINCT model) FROM {DBTable}";
             SqlCommand commandCount = new SqlCommand(querystringCount, dataBase.getSqlConnection());
-            
+
             int count = (int)commandCount.ExecuteScalar();
             string[] mass = new string[count];
 
@@ -40,5 +40,6 @@ namespace MSSQL
             dataBase.closeConnection();
             return mass;
         }
+
     }
 }

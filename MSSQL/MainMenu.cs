@@ -14,7 +14,7 @@ namespace MSSQL
     public partial class FormMainMenu : Form
     {
         private readonly checkUser _user;
-        private Form ActiveForm;
+        private new Form ActiveForm;
 
         public FormMainMenu(checkUser user)
         {
@@ -90,6 +90,11 @@ namespace MSSQL
         private void FormMainMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void toolStripButtonStatistics_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FormStatistics());
         }
     }
 }

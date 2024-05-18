@@ -103,7 +103,7 @@ namespace MSSQL
 
         private void FormCreatePDF_Load(object sender, EventArgs e)
         {
-            foreach (string el in DataBaseCommands.GetCartriges())
+            foreach (string el in DataBaseCommands.GetUniqueItems("Сartridges"))
             {
                 comboBoxPrinterModel.Items.Add(el);
             }

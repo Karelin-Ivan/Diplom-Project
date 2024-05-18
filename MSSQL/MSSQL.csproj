@@ -80,11 +80,11 @@
       <DependentUpon>ChangeUserPassword.cs</DependentUpon>
     </Compile>
     <Compile Include="HashFunction.cs" />
-    <Compile Include="RegistrationCartriges.cs">
+    <Compile Include="RegistrationCartrige.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistrationCartriges.Designer.cs">
-      <DependentUpon>RegistrationCartriges.cs</DependentUpon>
+    <Compile Include="RegistrationCartrige.Designer.cs">
+      <DependentUpon>RegistrationCartrige.cs</DependentUpon>
     </Compile>
     <Compile Include="AdminisrtationUsers.cs">
       <SubType>Form</SubType>
@@ -115,6 +115,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrationElement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrationElement.Designer.cs">
+      <DependentUpon>RegistrationElement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationTechnic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrationTechnic.Designer.cs">
+      <DependentUpon>RegistrationTechnic.cs</DependentUpon>
+    </Compile>
     <Compile Include="RegistrationUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,8 +158,8 @@
     <EmbeddedResource Include="ChangeUserPassword.resx">
       <DependentUpon>ChangeUserPassword.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegistrationCartriges.resx">
-      <DependentUpon>RegistrationCartriges.cs</DependentUpon>
+    <EmbeddedResource Include="RegistrationCartrige.resx">
+      <DependentUpon>RegistrationCartrige.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AdminisrtationUsers.resx">
       <DependentUpon>AdminisrtationUsers.cs</DependentUpon>
@@ -170,6 +182,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegistrationElement.resx">
+      <DependentUpon>RegistrationElement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrationTechnic.resx">
+      <DependentUpon>RegistrationTechnic.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RegistrationUser.resx">
       <DependentUpon>RegistrationUser.cs</DependentUpon>
     </EmbeddedResource>
