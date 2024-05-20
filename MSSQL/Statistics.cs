@@ -51,16 +51,13 @@ namespace MSSQL
                 }
                 series.Points.AddXY(monthName, countPoint);
             }
-            Series series1 = chartOnRepair.Series.Add("");
-            double[] nfg = { 10, 11 };
-            series1.Points.DataBindY(nfg);
         }
 
         private void RefreshDataGrid(DataGridView dgw, string DBName)
         {
             dgw.Rows.Clear();
 
-            string queryString = $"SELECT * FROM {DBName} WHERE  onRepair = 1 ORDER BY model";
+            string queryString = $"SELECT model,barcode FROM {DBName} WHERE  onRepair = 1 ORDER BY model";
             //Добавить в строку запроса для получения данных только за данный месяц
             //modifiedDate > '{DateTime.Now.AddDays(-(DateTime.Now.Day - 1))}' AND modifiedDate < '{DateTime.Now}' AND
             SqlCommand comand = new SqlCommand(queryString, dataBase.getSqlConnection());
@@ -80,8 +77,10 @@ namespace MSSQL
             using (SqlCommand cmd = new SqlCommand(queryString, dataBase.getSqlConnection()))
             {
                 dataBase.openConnection();
-                    return (cmd.ExecuteScalar().ToString());
+                string str = cmd.ExecuteScalar().ToString();
                 dataBase.closeConnection();
+                return (str);
+                
             }
         }
 
@@ -94,7 +93,7 @@ namespace MSSQL
 
         private void ReadSinglRow(DataGridView dgw, IDataRecord record)
         {
-            dgw.Rows.Add( record.GetString(1), record.GetString(2));
+            dgw.Rows.Add( record.GetString(0), record.GetString(1));
         }
 
         private void buttonCartrigesOnRepair_Click(object sender, EventArgs e)
@@ -106,5 +105,6 @@ namespace MSSQL
         {
             RefreshDataGrid(dataGridView, "Technics");
         }
+
     }
 }

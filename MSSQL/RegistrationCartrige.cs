@@ -38,7 +38,7 @@ namespace MSSQL
         {
             if (textBoxBarcode.Text != string.Empty && comboBoxOrganization.Text != string.Empty && comboBoxModel.Text != string.Empty)
             {
-                string queryString = $"INSERT INTO Cartridges (model, barcode, organization) VALUES ('{comboBoxModel.Text}', '{textBoxBarcode.Text}','{comboBoxOrganization.Text}')";
+                string queryString = $"INSERT INTO Сartridges (model, barcode, organization) VALUES ('{comboBoxModel.Text}', '{textBoxBarcode.Text}','{comboBoxOrganization.Text}')";
                 SqlCommand command = new SqlCommand(queryString, dataBase.getSqlConnection());
                 dataBase.openConnection();
                 if (command.ExecuteNonQuery() == 1)
@@ -48,6 +48,12 @@ namespace MSSQL
                 else
                     MessageBox.Show("Ошибка соединения", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dataBase.closeConnection();
+
+                //Закрытие общей формы
+                Application.OpenForms.OfType<Form>()
+                                     .Where(form => String.Equals(form.Name, "FormRegistrationElement"))
+                                     .ToList()
+                                     .ForEach(form => form.Close());
             }
             else
                 MessageBox.Show("Заполните все поля!");

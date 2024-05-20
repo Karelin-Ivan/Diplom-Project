@@ -21,79 +21,75 @@ namespace MSSQL
         {
             InitializeComponent();
         }
-
+        
         DataBase dataBase = new DataBase();
+        bool toRepair=false;
 
         private void CreateColumns()
         {
-            dataGridViewCartriges.Columns.Add("model", "Модель");
             dataGridViewCartriges.Columns.Add("barcode", "Штрихкод");
+            dataGridViewCartriges.Columns.Add("model", "Модель");
             dataGridViewCartriges.Columns.Add("direction", "Направление");
         }
 
         private void AddCartigeToRegister(string barcode)
         {
-            string queryGetString = $"SELECT model, barcode FROM Technics WHERE barcode = '{barcode}' \r\nSELECT model, barcode FROM Сartridges WHERE barcode = '{barcode}' ";
-            SqlCommand getCommand = new SqlCommand(queryGetString, dataBase.getSqlConnection());
+            string querystringCount = $"SELECT SUM(Count) AS TotalCount FROM (SELECT COUNT(*) AS Count FROM Сartridges where barcode = '{barcode}'UNION ALL SELECT COUNT(*) FROM Technics where barcode = '{barcode}') AS SubQuery;";
+
+            SqlCommand commandCount = new SqlCommand(querystringCount, dataBase.getSqlConnection());
 
             dataBase.openConnection();
-
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            DataTable manualDTable = new DataTable();
-            adapter.SelectCommand = getCommand;
-            adapter.Fill(manualDTable);
-
-
-            for (int i = 0; i < manualDTable.Rows.Count; i++)
+            if ((int)commandCount.ExecuteScalar() == 1 && !DGVHaveDublicate(barcode, dataGridViewCartriges))
             {
-                dataGridViewCartriges.Rows.Add(manualDTable.Rows[i][0], barcode, directionText());
+                string queryGetString = $"(SELECT barcode, model FROM Сartridges WHERE barcode ='{barcode}') UNION (SELECT barcode, model FROM Technics WHERE barcode ='{barcode}') ";
+                SqlCommand getCommand = new SqlCommand(queryGetString, dataBase.getSqlConnection());
+
+                SqlDataReader reader = getCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    dataGridViewCartriges.Rows.Add(reader.GetString(0), reader.GetString(1), directionText());
+
+                }
+                reader.Close();
 
                 string querySetString = $"INSERT INTO Register (barcode, direction, movementDate) VALUES ('{barcode}','{directionText()}','{DateTime.Now}')"
-                                      + $"UPDATE Сartridges SET onRepair = '{checkBoxDirectionOut.Checked}', modifiedDate = '{DateTime.Now}' WHERE barcode = '{barcode}'\r\nUPDATE Technics SET onRepair = '{checkBoxDirectionOut.Checked}', modifiedDate = '{DateTime.Now}' WHERE barcode = '{barcode}'";               
+                                      + $"UPDATE Сartridges SET onRepair = '{toRepair}', modifiedDate = '{DateTime.Now}' WHERE barcode = '{barcode}'\r\nUPDATE Technics SET onRepair = '{toRepair}', modifiedDate = '{DateTime.Now}' WHERE barcode = '{barcode}'";
                 SqlCommand setCommand = new SqlCommand(querySetString, dataBase.getSqlConnection());
                 setCommand.ExecuteNonQuery();
+
             }
-            
-            dataBase.closeConnection();
-
-
-            if (manualDTable.Rows.Count == 0 && Application.OpenForms["formAddCartrige"] == null && MessageBox.Show($"Код: {barcode} \nШтрихкод не найден, добавить новую запись?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            else if (DGVHaveDublicate(barcode, dataGridViewCartriges))
+                MessageBox.Show("Запись с таким штрихкодом уже добавлена!");
+            else if (Application.OpenForms["formAddCartrige"] == null && MessageBox.Show($"Код: {barcode} \nШтрихкод не найден, добавить новую запись?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 FormRegistrationElement formAddCartrige = new FormRegistrationElement(barcode);
                 formAddCartrige.Show();
             }
+            dataBase.closeConnection();
         }
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
-
-            if (!FindDGVDublicate(textBoxEnterBarcode.Text, dataGridViewCartriges))
-                    AddCartigeToRegister(textBoxEnterBarcode.Text);
-            else
-                MessageBox.Show("Запись уже существует");
+            AddCartigeToRegister(textBoxEnterBarcode.Text);
             textBoxEnterBarcode.Text = string.Empty;
+            textBoxEnterBarcode.Focus();
         }
 
-        private bool FindDGVDublicate(string barcode, DataGridView dataGrid) //Поиск в колонке повторяющегося значения
+        private bool DGVHaveDublicate(string barcode, DataGridView dataGrid)
         {
-            bool dublicate = false;
-
             for (int i = 0; i < dataGrid.RowCount; i++)
             {
-                if (dataGrid.Rows[i].Cells[1].Value.ToString() == textBoxEnterBarcode.Text)
+                if (dataGrid.Rows[i].Cells[0].Value.ToString() == barcode)
                 {
-                    dublicate = true;
+                   return(true);
                 }
             }
-            return dublicate;
+            return (false);
         }
 
         private void formCartriges_Load(object sender, EventArgs e)
         {
             CreateColumns();
-            //dataGridViewCartriges.Columns[0].Width = 100;
-            //dataGridViewCartriges.Columns[3].Width = 200;
-
             textBoxEnterBarcode.Focus();
         }
 
@@ -107,30 +103,27 @@ namespace MSSQL
         }
 
 
-        private void checkBoxDirectionIn_Click(object sender, EventArgs e)
-        {
-            checkBoxDirectionIn.Checked = true;
-            checkBoxDirectionIn.ForeColor = default;
-            checkBoxDirectionOut.Checked = !checkBoxDirectionIn.Checked;
-            checkBoxDirectionOut.ForeColor = Color.Silver;
-            textBoxEnterBarcode.Focus();
-        }
-        private void checkBoxDirectionOut_Click(object sender, EventArgs e)
-        {
-            checkBoxDirectionOut.Checked = true;
-            checkBoxDirectionOut.ForeColor = default;
-            checkBoxDirectionIn.Checked = !checkBoxDirectionOut.Checked;
-            checkBoxDirectionIn.ForeColor = Color.Silver;
-            textBoxEnterBarcode.Focus();
-        }
-
-
         private string directionText()
         {
-            if (checkBoxDirectionOut.Checked)
-                return (checkBoxDirectionIn.Text);
-            else return (checkBoxDirectionOut.Text);
+            if (toRepair)
+                return (buttonOUT.Text);
+            else return (buttonIN.Text);
         }
 
+        private void buttonIN_Click(object sender, EventArgs e)
+        {
+            toRepair = false;
+            buttonIN.ForeColor = default;
+            buttonOUT.ForeColor = Color.Silver;
+            textBoxEnterBarcode.Focus();
+        }
+
+        private void buttonOUT_Click(object sender, EventArgs e)
+        {
+            toRepair = true;
+            buttonOUT.ForeColor = default;
+            buttonIN.ForeColor = Color.Silver;
+            textBoxEnterBarcode.Focus();
+        }
     }
 }

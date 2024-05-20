@@ -89,7 +89,10 @@ namespace MSSQL
 
         private void FormMainMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            Application.OpenForms.OfType<Form>()
+                                     .ToList()
+                                     .ForEach(form => form.Close());
+            //Application.Exit();
         }
 
         private void toolStripButtonStatistics_Click(object sender, EventArgs e)

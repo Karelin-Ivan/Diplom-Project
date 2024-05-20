@@ -44,6 +44,14 @@ namespace MSSQL
                 else
                     MessageBox.Show("Ошибка соединения", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dataBase.closeConnection();
+
+
+                //Закрытие общей формы
+                Application.OpenForms.OfType<Form>()
+                                     .Where(form => String.Equals(form.Name, "FormRegistrationElement"))
+                                     .ToList()
+                                     .ForEach(form => form.Close());
+
             }
             else
                 MessageBox.Show("Заполните все поля с знаком '*'!");
