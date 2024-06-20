@@ -29,7 +29,6 @@ namespace MSSQL
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-
             var loginUser = textBoxLogin.Text;
             var passUser = HashFunction.HashPassword(textBoxPassword.Text);
 

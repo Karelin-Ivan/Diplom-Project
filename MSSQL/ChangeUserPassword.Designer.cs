@@ -147,7 +147,6 @@
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxNewPassword);
             this.Name = "FormChangeUserPassword";
-            this.Text = "ChangeUserPassword";
             this.Load += new System.EventHandler(this.ChangeUserPassword_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

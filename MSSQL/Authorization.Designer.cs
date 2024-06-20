@@ -112,7 +112,6 @@
             this.Controls.Add(this.textBoxLogin);
             this.Name = "FormAuthorization";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Authorization";
             this.Load += new System.EventHandler(this.MSSQL_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

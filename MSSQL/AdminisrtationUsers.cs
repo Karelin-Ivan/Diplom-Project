@@ -72,11 +72,11 @@ namespace MSSQL
 
         private void buttonDeleteElement_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Удалить выбранного пользователя?","",MessageBoxButtons.YesNo)==DialogResult.Yes)
+            var selectedRowIndex = dataGridViewUsers.CurrentCell.RowIndex;
+
+            if (MessageBox.Show($"Удалить пользователя {dataGridViewUsers.Rows[selectedRowIndex].Cells[1].Value.ToString()} ?","",MessageBoxButtons.YesNo)==DialogResult.Yes)
             {
                 dataBase.openConnection();
-
-                var selectedRowIndex = dataGridViewUsers.CurrentCell.RowIndex;
 
                 var id = Convert.ToInt16(dataGridViewUsers.Rows[selectedRowIndex].Cells[0].Value);
                 var deleteQuery = $"DELETE FROM Users WHERE id = {id}";
@@ -127,7 +127,7 @@ namespace MSSQL
             if (Application.OpenForms["FormChangeUserPassword"] == null)
             {
                 int selectedRowIndex = dataGridViewUsers.CurrentCell.RowIndex;
-                FormChangeUserPassword formChangeUserPassword = new FormChangeUserPassword(Convert.ToInt16(dataGridViewUsers.Rows[selectedRowIndex].Cells[0].Value));
+                FormChangeUserPassword formChangeUserPassword = new FormChangeUserPassword(Convert.ToInt16(dataGridViewUsers.Rows[selectedRowIndex].Cells[0].Value), dataGridViewUsers.Rows[selectedRowIndex].Cells[1].Value.ToString());
                 formChangeUserPassword.Show();
             }
             

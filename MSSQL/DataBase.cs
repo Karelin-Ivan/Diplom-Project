@@ -10,6 +10,7 @@ namespace MSSQL
     internal class DataBase
     {
         SqlConnection sqlConnection = new SqlConnection(@"Data Source=IVAN\SQLEXPRESS;Initial Catalog=Project;Integrated Security=True");
+        //SqlConnection sqlConnection = new SqlConnection(@"Data Source=192.168.0.104,49170;Initial Catalog=Project;User ID=MSSQLPROFILE;Password=sa");
 
 
         public void openConnection()

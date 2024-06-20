@@ -36,10 +36,6 @@ namespace MSSQL
             OpenChildForm(new FormStatistics());
         }
 
-        private void сканерToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-                OpenChildForm(new FormCartriges());
-        }
 
         private void OpenChildForm(Form childForm)
         {
@@ -74,7 +70,6 @@ namespace MSSQL
 
         private void toolStripLabelUserStatus_Click(object sender, EventArgs e)
         {
-
             if (Application.OpenForms["formAuthorization"] == null)
             {
                 FormAuthorization formAuthorization = new FormAuthorization();
@@ -98,6 +93,11 @@ namespace MSSQL
         private void toolStripButtonStatistics_Click(object sender, EventArgs e)
         {
             OpenChildForm(new FormStatistics());
+        }
+
+        private void toolStripButtonAccouting_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FormCartriges());
         }
     }
 }

@@ -86,7 +86,6 @@
             this.Controls.Add(this.buttonCartrige);
             this.Controls.Add(this.label4);
             this.Name = "FormRegistrationElement";
-            this.Text = "RegistrationElement";
             this.Load += new System.EventHandler(this.FormRegistrationElement_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

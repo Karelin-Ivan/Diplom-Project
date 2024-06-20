@@ -16,10 +16,11 @@ namespace MSSQL
         DataBase dataBase = new DataBase();
         Int16 userID;
 
-        public FormChangeUserPassword(Int16 id)
+        public FormChangeUserPassword(Int16 id, string username)
         {
             InitializeComponent();
             userID = id;
+            textBoxUsername.Text = username;
         }
 
         private void ChangeUserPassword_Load(object sender, EventArgs e)

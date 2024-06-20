@@ -48,10 +48,11 @@
             this.textBoxEnterBarcode.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxEnterBarcode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxEnterBarcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxEnterBarcode.Location = new System.Drawing.Point(239, 3);
+            this.textBoxEnterBarcode.Location = new System.Drawing.Point(238, 2);
+            this.textBoxEnterBarcode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxEnterBarcode.Multiline = true;
             this.textBoxEnterBarcode.Name = "textBoxEnterBarcode";
-            this.textBoxEnterBarcode.Size = new System.Drawing.Size(702, 45);
+            this.textBoxEnterBarcode.Size = new System.Drawing.Size(704, 47);
             this.textBoxEnterBarcode.TabIndex = 0;
             this.textBoxEnterBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxEnterBarcode_KeyDown);
             // 
@@ -61,9 +62,10 @@
             this.buttonEnter.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.buttonEnter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEnter.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonEnter.Location = new System.Drawing.Point(3, 3);
+            this.buttonEnter.Location = new System.Drawing.Point(2, 2);
+            this.buttonEnter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonEnter.Name = "buttonEnter";
-            this.buttonEnter.Size = new System.Drawing.Size(230, 45);
+            this.buttonEnter.Size = new System.Drawing.Size(232, 47);
             this.buttonEnter.TabIndex = 4;
             this.buttonEnter.Text = "Enter";
             this.buttonEnter.UseVisualStyleBackColor = true;
@@ -79,19 +81,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewCartriges.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewCartriges.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewCartriges.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridViewCartriges.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewCartriges.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dataGridViewCartriges.ColumnHeadersHeight = 30;
-            this.dataGridViewCartriges.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewCartriges.EnableHeadersVisualStyles = false;
             this.dataGridViewCartriges.Location = new System.Drawing.Point(0, 74);
             this.dataGridViewCartriges.Margin = new System.Windows.Forms.Padding(0);
             this.dataGridViewCartriges.MultiSelect = false;
             this.dataGridViewCartriges.Name = "dataGridViewCartriges";
             this.dataGridViewCartriges.ReadOnly = true;
             this.dataGridViewCartriges.RowHeadersVisible = false;
-            this.dataGridViewCartriges.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewCartriges.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dataGridViewCartriges.ShowEditingIcon = false;
             this.dataGridViewCartriges.Size = new System.Drawing.Size(944, 349);
@@ -105,9 +105,9 @@
             this.tableLayoutPanelAllPage.Controls.Add(this.dataGridViewCartriges, 0, 1);
             this.tableLayoutPanelAllPage.Controls.Add(this.tableLayoutPanel1, 0, 0);
             this.tableLayoutPanelAllPage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelAllPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tableLayoutPanelAllPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tableLayoutPanelAllPage.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelAllPage.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.tableLayoutPanelAllPage.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.tableLayoutPanelAllPage.Name = "tableLayoutPanelAllPage";
             this.tableLayoutPanelAllPage.RowCount = 3;
             this.tableLayoutPanelAllPage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.78947F));
@@ -141,11 +141,12 @@
             this.tableLayoutPanel1.Controls.Add(this.buttonIN, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(938, 68);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(940, 70);
             this.tableLayoutPanel1.TabIndex = 15;
             // 
             // buttonOUT
@@ -155,10 +156,10 @@
             this.buttonOUT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOUT.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonOUT.ForeColor = System.Drawing.Color.Silver;
-            this.buttonOUT.Location = new System.Drawing.Point(469, 0);
+            this.buttonOUT.Location = new System.Drawing.Point(470, 0);
             this.buttonOUT.Margin = new System.Windows.Forms.Padding(0);
             this.buttonOUT.Name = "buttonOUT";
-            this.buttonOUT.Size = new System.Drawing.Size(469, 68);
+            this.buttonOUT.Size = new System.Drawing.Size(470, 70);
             this.buttonOUT.TabIndex = 27;
             this.buttonOUT.Text = "Отпуск";
             this.buttonOUT.UseVisualStyleBackColor = true;
@@ -173,7 +174,7 @@
             this.buttonIN.Location = new System.Drawing.Point(0, 0);
             this.buttonIN.Margin = new System.Windows.Forms.Padding(0);
             this.buttonIN.Name = "buttonIN";
-            this.buttonIN.Size = new System.Drawing.Size(469, 68);
+            this.buttonIN.Size = new System.Drawing.Size(470, 70);
             this.buttonIN.TabIndex = 26;
             this.buttonIN.Text = "Поступление";
             this.buttonIN.UseVisualStyleBackColor = true;
@@ -181,13 +182,13 @@
             // 
             // FormCartriges
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 33F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 474);
             this.Controls.Add(this.tableLayoutPanelAllPage);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "FormCartriges";
             this.Text = "Cartriges";
             this.Load += new System.EventHandler(this.formCartriges_Load);

@@ -151,7 +151,6 @@
             // 
             // textBoxInventoryNumber
             // 
-            this.textBoxInventoryNumber.Enabled = false;
             this.textBoxInventoryNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxInventoryNumber.Location = new System.Drawing.Point(20, 333);
             this.textBoxInventoryNumber.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -172,7 +171,6 @@
             // 
             // textBoxPlacement
             // 
-            this.textBoxPlacement.Enabled = false;
             this.textBoxPlacement.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxPlacement.Location = new System.Drawing.Point(18, 274);
             this.textBoxPlacement.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -193,7 +191,6 @@
             // 
             // textBoxMOL
             // 
-            this.textBoxMOL.Enabled = false;
             this.textBoxMOL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxMOL.Location = new System.Drawing.Point(18, 214);
             this.textBoxMOL.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

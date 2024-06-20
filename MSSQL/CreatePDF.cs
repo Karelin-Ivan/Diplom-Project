@@ -22,7 +22,7 @@ namespace MSSQL
 
 
         private static string generalfile = Properties.Settings.Default.DocumentsInputPath + @"/repairPrinter.docx"; // файл-шаблон
-        private static string newfile = $"{Properties.Settings.Default.DocumentsOutputPath}//test{DateTime.Now.ToString().Replace(":", "")}.pdf"; // новый файл на основе файла-шаблона
+        private static string newfile = $"{Properties.Settings.Default.DocumentsOutputPath} {DateTime.Now.ToString().Replace(":", "")}.pdf"; // новый файл на основе файла-шаблона
         private static Object fileName = generalfile;
         private static Object missing = Type.Missing;
 
@@ -103,7 +103,7 @@ namespace MSSQL
 
         private void FormCreatePDF_Load(object sender, EventArgs e)
         {
-            foreach (string el in DataBaseCommands.GetUniqueItems("Сartridges"))
+            foreach (string el in DataBaseCommands.GetUniqueItems("Technics"))
             {
                 comboBoxPrinterModel.Items.Add(el);
             }

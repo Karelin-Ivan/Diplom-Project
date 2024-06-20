@@ -31,8 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelUserStatus = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripDropDownButtonCartriges = new System.Windows.Forms.ToolStripDropDownButton();
-            this.сканерToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButtonAccouting = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRepair = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButtonReports = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuItemReportRegister = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +48,7 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabelUserStatus,
-            this.toolStripDropDownButtonCartriges,
+            this.toolStripButtonAccouting,
             this.toolStripButtonRepair,
             this.toolStripDropDownButtonReports,
             this.toolStripButtonStatistics,
@@ -69,23 +68,14 @@
             this.toolStripLabelUserStatus.Text = "userStatus";
             this.toolStripLabelUserStatus.Click += new System.EventHandler(this.toolStripLabelUserStatus_Click);
             // 
-            // toolStripDropDownButtonCartriges
+            // toolStripButtonAccouting
             // 
-            this.toolStripDropDownButtonCartriges.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButtonCartriges.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сканерToolStripMenuItem});
-            this.toolStripDropDownButtonCartriges.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonCartriges.Image")));
-            this.toolStripDropDownButtonCartriges.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButtonCartriges.Name = "toolStripDropDownButtonCartriges";
-            this.toolStripDropDownButtonCartriges.Size = new System.Drawing.Size(59, 24);
-            this.toolStripDropDownButtonCartriges.Text = "Учет";
-            // 
-            // сканерToolStripMenuItem
-            // 
-            this.сканерToolStripMenuItem.Name = "сканерToolStripMenuItem";
-            this.сканерToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.сканерToolStripMenuItem.Text = "Сканер";
-            this.сканерToolStripMenuItem.Click += new System.EventHandler(this.сканерToolStripMenuItem_Click);
+            this.toolStripButtonAccouting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonAccouting.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAccouting.Name = "toolStripButtonAccouting";
+            this.toolStripButtonAccouting.Size = new System.Drawing.Size(50, 24);
+            this.toolStripButtonAccouting.Text = "Учет";
+            this.toolStripButtonAccouting.Click += new System.EventHandler(this.toolStripButtonAccouting_Click);
             // 
             // toolStripButtonRepair
             // 
@@ -159,7 +149,6 @@
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Name = "FormMainMenu";
-            this.Text = "MainMenu";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMainMenu_FormClosed);
             this.Load += new System.EventHandler(this.formMainMenu_Load);
             this.toolStrip1.ResumeLayout(false);
@@ -174,13 +163,12 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabelUserStatus;
         private System.Windows.Forms.ToolStripButton toolStripButtonSetting;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonCartriges;
-        private System.Windows.Forms.ToolStripMenuItem сканерToolStripMenuItem;
         private System.Windows.Forms.Panel panelFormLoader;
         private System.Windows.Forms.ToolStripButton toolStripButtonRepair;
         private System.Windows.Forms.ToolStripButton toolStripButtonUsers;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonReports;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemReportRegister;
         private System.Windows.Forms.ToolStripButton toolStripButtonStatistics;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAccouting;
     }
 }

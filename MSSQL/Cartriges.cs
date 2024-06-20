@@ -48,7 +48,6 @@ namespace MSSQL
                 while (reader.Read())
                 {
                     dataGridViewCartriges.Rows.Add(reader.GetString(0), reader.GetString(1), directionText());
-
                 }
                 reader.Close();
 
@@ -60,7 +59,7 @@ namespace MSSQL
             }
             else if (DGVHaveDublicate(barcode, dataGridViewCartriges))
                 MessageBox.Show("Запись с таким штрихкодом уже добавлена!");
-            else if (Application.OpenForms["formAddCartrige"] == null && MessageBox.Show($"Код: {barcode} \nШтрихкод не найден, добавить новую запись?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            else if (Application.OpenForms["formAddCartrige"] == null && MessageBox.Show($"Штрихкод {barcode} не найден, добавить новую запись?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 FormRegistrationElement formAddCartrige = new FormRegistrationElement(barcode);
                 formAddCartrige.Show();
@@ -125,5 +124,6 @@ namespace MSSQL
             buttonIN.ForeColor = Color.Silver;
             textBoxEnterBarcode.Focus();
         }
+
     }
 }
